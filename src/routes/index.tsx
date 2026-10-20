@@ -1,24 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Toaster } from "@/components/ui/sonner";
+import { CartProvider } from "@/components/flora/cart";
+import { Header } from "@/components/flora/Header";
+import { CartDrawer } from "@/components/flora/CartDrawer";
+import { Catalog, type Filter } from "@/components/flora/Catalog";
+import { About, Categories, Contact, FloatingWhats, Features, Footer, Gallery, Hero, Occasions } from "@/components/flora/Sections";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Flora Encanto Floricultura — Buquês e arranjos" },
+      { name: "description", content: "Buquês, arranjos e presentes florais para cada ocasião. Monte seu pedido e envie pelo WhatsApp." },
+      { property: "og:title", content: "Flora Encanto Floricultura" },
+      { property: "og:description", content: "Flores que transformam momentos em memórias." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [filter, setFilter] = useState<Filter>({ type: "all" });
+  const go = (f: Filter) => {
+    setFilter(f);
+    document.getElementById("buques")?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <CartProvider>
+      <Header />
+      <main>
+        <Hero />
+        <Categories onPick={(id) => go({ type: "cat", id })} />
+        <Catalog filter={filter} setFilter={setFilter} />
+        <Occasions onPick={(id) => go({ type: "occ", id })} />
+        <Features />
+        <Gallery />
+        <About />
+        <Contact />
+      </main>
+      <Footer />
+      <FloatingWhats />
+      <CartDrawer />
+      <Toaster position="top-center" />
+    </CartProvider>
   );
 }
