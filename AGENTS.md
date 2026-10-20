@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Editable business data (WhatsApp number, address, hours) lives only in src/config/site.ts and catalog data in src/data/catalog.ts — single place for owners to edit.
