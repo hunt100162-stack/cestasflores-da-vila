@@ -11,9 +11,9 @@ export function CartDrawer() {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
+  const imageFor = useImageUrls(lines.map((line) => line.image ?? ""));
   if (!open) return null;
   const total = cartTotal(lines);
-  const imageFor = useImageUrls(lines.map((line) => line.image ?? ""));
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Carrinho">
