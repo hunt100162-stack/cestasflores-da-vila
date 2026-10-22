@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, ShoppingBag, X } from "lucide-react";
-import { categories, occasions, products as demoProducts, type CategoryId, type Product } from "@/data/catalog";
+import { categories, occasions, type CategoryId, type Product } from "@/data/catalog";
 import { supabase } from "@/integrations/supabase/client";
 import { useImageUrls } from "@/lib/images";
 import { brl } from "@/lib/order";
@@ -43,7 +43,6 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
         const categoryIds = linksByProduct.get(product.id) ?? [];
         const categoryId = categoryIds[0];
         const categorySlug = categoryId ? categoryById.get(categoryId) : undefined;
-        const demo = demoProducts.find((item) => item.id === product.slug);
         return {
           id: product.id,
           slug: product.slug,
@@ -52,7 +51,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
           price: Number(product.promo_price ?? product.price),
           priceFrom: product.price_from,
           category: categorySlug ?? "buques",
-          image: product.images[0] ?? demo?.image ?? demoProducts[0].image,
+          image: product.images[0] ?? "",
           stock: product.stock,
         };
       });
@@ -126,7 +125,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
           {list.map((p) => (
             <article key={p.id} className="group flex flex-col overflow-hidden rounded-2xl border bg-card transition hover:shadow-soft">
               <div className="aspect-square overflow-hidden">
-                <img src={imageFor(p.image) ?? demoProducts[0].image} alt={p.name} loading="lazy" width={816} height={816} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                {imageFor(p.image) ? <img src={imageFor(p.image)} alt={p.name} loading="lazy" width={816} height={816} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /> : <div className="grid h-full place-items-center bg-muted px-4 text-center text-sm text-muted-foreground">Imagem não cadastrada</div>}
               </div>
               <div className="flex flex-1 flex-col p-3 md:p-5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-gold">
@@ -166,7 +165,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
         <div className="fixed inset-0 z-50 grid place-items-center bg-sage-deep/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={`Detalhes de ${selected.name}`} onClick={() => setSelected(null)}>
           <div className="relative grid max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-background shadow-soft md:grid-cols-2" onClick={(e) => e.stopPropagation()}>
             <button className="absolute right-3 top-3 z-10 rounded-full bg-background/90 p-2" onClick={() => setSelected(null)} aria-label="Fechar detalhes"><X className="h-5 w-5" /></button>
-            <img src={imageFor(selected.image) ?? demoProducts[0].image} alt={selected.name} className="aspect-square h-full w-full object-cover" />
+            {imageFor(selected.image) ? <img src={imageFor(selected.image)} alt={selected.name} className="aspect-square h-full w-full object-cover" /> : <div className="grid aspect-square place-items-center bg-muted p-4 text-center text-sm text-muted-foreground">Imagem não cadastrada</div>}
             <div className="flex flex-col p-6">
               <p className="eyebrow">{categories.find((category) => category.id === selected.category)?.name ?? selected.category}</p>
               <h3 className="mt-2 text-3xl">{selected.name}</h3>
