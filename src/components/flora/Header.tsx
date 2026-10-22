@@ -60,6 +60,9 @@ export function Header() {
               </span>
             )}
           </button>
+          <Link to={user ? "/conta" : "/auth"} className="rounded-full p-2.5 text-sage-deep hover:bg-muted" aria-label={user ? "Minha conta" : "Entrar"}>
+            <UserIcon className="h-5 w-5" />
+          </Link>
           <button onClick={() => openWhatsapp(SITE.defaultMessage)} className="btn btn-whatsapp hidden md:inline-flex">
             <WhatsIcon className="h-4 w-4" /> Pedir pelo WhatsApp
           </button>
