@@ -10,10 +10,10 @@ import { About, Categories, Contact, FloatingWhats, Features, Footer, Gallery, H
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Flora Encanto Floricultura — Buquês e arranjos" },
-      { name: "description", content: "Buquês, arranjos e presentes florais para cada ocasião. Monte seu pedido e envie pelo WhatsApp." },
-      { property: "og:title", content: "Flora Encanto Floricultura" },
-      { property: "og:description", content: "Flores que transformam momentos em memórias." },
+      { title: "Cestas Flores da Vila — Flores, cestas e presentes" },
+      { name: "description", content: "Flores, cestas e presentes especiais para surpreender em qualquer ocasião. Consulte o catálogo e faça seu pedido." },
+      { property: "og:title", content: "Cestas Flores da Vila — Floricultura" },
+      { property: "og:description", content: "Flores e cestas que transformam momentos em lembranças inesquecíveis." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
