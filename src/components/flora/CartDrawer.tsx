@@ -37,7 +37,7 @@ export function CartDrawer() {
                 {lines.map((l) => {
                   return (
                     <li key={l.id} className="flex gap-3">
-                      {l.image && <img src={imageFor(l.image) ?? l.image} alt="" className="h-20 w-20 rounded-xl object-cover" loading="lazy" />}
+                      {imageFor(l.image) ? <img src={imageFor(l.image)} alt="" className="h-20 w-20 rounded-xl object-cover" loading="lazy" /> : <div className="h-20 w-20 shrink-0 rounded-xl bg-muted" aria-hidden="true" />}
                       <div className="flex-1">
                         <p className="font-medium leading-tight">{l.name}</p>
                         <p className="text-sm text-muted-foreground">{l.priceFrom && "a partir de "}{brl(l.price)}</p>
