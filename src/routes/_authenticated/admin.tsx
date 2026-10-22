@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { AdminProducts } from "@/components/admin/AdminProducts";
+import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Painel — Flora Encanto" }, { name: "description", content: "Painel administrativo da loja." }] }),
@@ -59,8 +61,10 @@ function Admin() {
         ))}
       </div>
       <p className="mt-8 rounded-xl bg-secondary px-4 py-3 text-sm text-secondary-foreground">
-        Próximas etapas: cadastro de produtos e categorias, estoque e pedidos aparecerão aqui.
+        Próximas etapas: categorias, lotes com validade e pedidos aparecerão aqui.
       </p>
+      <AdminProducts />
+      <Toaster position="top-center" />
     </main>
   );
 }
