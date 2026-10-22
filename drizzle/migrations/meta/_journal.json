@@ -15,6 +15,13 @@
       "when": 1792682155525,
       "tag": "0001_product_images_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792682171046,
+      "tag": "0002_product_images_read",
+      "breakpoints": true
     }
   ]
 }
