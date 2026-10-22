@@ -1,4 +1,4 @@
-// ==== DADOS EDITÁVEIS DA DEMONSTRAÇÃO ====
+// ==== DADOS COMERCIAIS EDITÁVEIS DA LOJA ====
 // Preencha com o número real (somente dígitos, com DDI e DDD), ex: "5511999999999".
 // Enquanto estiver vazio, o site mostra um aviso e não abre o WhatsApp.
 export const WHATSAPP_NUMBER = "";
@@ -6,11 +6,11 @@ export const WHATSAPP_NUMBER = "";
 export const SITE = {
   name: "Cestas Flores da Vila",
   fullName: "Cestas Flores da Vila — Floricultura",
-  // Endereço fictício. Defina addressConfirmed = true somente com o endereço real.
+  // Defina addressConfirmed = true somente depois de confirmar o endereço real.
   address: "Endereço a confirmar",
   addressConfirmed: false,
   phone: "A confirmar",
-  instagram: "", // ex: "https://instagram.com/floraencanto"
+  instagram: "", // ex: "https://instagram.com/usuario-da-loja"
   hours: [
     { days: "Horário de atendimento", time: "A confirmar" },
   ],
