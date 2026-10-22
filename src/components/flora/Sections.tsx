@@ -25,12 +25,12 @@ export function Hero() {
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 md:pb-0">
         <div className="fade-up max-w-xl">
           <p className="eyebrow">Floricultura · Buquês & Arranjos</p>
-          <h1 className="mt-4 text-5xl leading-[1.02] text-sage-deep md:text-7xl">Flores que transformam momentos em memórias.</h1>
+          <h1 className="mt-4 text-5xl leading-[1.02] text-sage-deep md:text-7xl">Flores e cestas que transformam momentos em lembranças inesquecíveis.</h1>
           <p className="mt-5 text-lg text-foreground/80">
-            Buquês e arranjos especiais para surpreender, emocionar e tornar cada ocasião inesquecível.
+            Surpreenda quem você ama com flores, cestas e presentes especiais, preparados para tornar cada ocasião única.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#buques" className="btn btn-primary">Explorar flores</a>
+            <a href="#buques" className="btn btn-primary">Ver nossas cestas</a>
             <button className="btn btn-whatsapp" onClick={() => openWhatsapp("Olá! Gostaria de fazer um pedido na Flora Encanto.")}>
               <WhatsIcon className="h-4 w-4" /> Fazer um pedido
             </button>
