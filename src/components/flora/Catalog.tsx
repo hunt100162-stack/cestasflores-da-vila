@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ShoppingBag } from "lucide-react";
-import { categories, occasions, products, type CategoryId } from "@/data/catalog";
+import { categories, occasions, products as demoProducts, type CategoryId, type Product } from "@/data/catalog";
+import { supabase } from "@/integrations/supabase/client";
+import { useImageUrls } from "@/lib/images";
 import { brl } from "@/lib/order";
 import { useCart } from "./cart";
 import { openWhatsapp } from "@/config/site";
@@ -13,16 +16,60 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
   const { add, setOpen } = useCart();
   const [sort, setSort] = useState<"none" | "asc" | "desc">("none");
 
+  // The storefront reads the same database records managed by the admin panel.
+  const catalog = useQuery({
+    queryKey: ["public-catalog"],
+    queryFn: async (): Promise<Product[]> => {
+      const [productResult, categoryResult, linkResult] = await Promise.all([
+        supabase.from("products").select("id,slug,name,description,price,promo_price,price_from,images,stock,active,sort_order").eq("active", true).order("sort_order").order("created_at"),
+        supabase.from("categories").select("id,slug,name,active").eq("active", true).order("sort_order"),
+        supabase.from("product_categories").select("product_id,category_id"),
+      ]);
+      if (productResult.error) throw productResult.error;
+      if (categoryResult.error) throw categoryResult.error;
+      if (linkResult.error) throw linkResult.error;
+
+      const categoryById = new Map(categoryResult.data.map((category) => [category.id, category.slug]));
+      const categoryNameById = new Map(categoryResult.data.map((category) => [category.id, category.name]));
+      const linksByProduct = new Map<string, string[]>();
+      for (const link of linkResult.data) {
+        const current = linksByProduct.get(link.product_id) ?? [];
+        current.push(link.category_id);
+        linksByProduct.set(link.product_id, current);
+      }
+
+      return productResult.data.map((product) => {
+        const categoryIds = linksByProduct.get(product.id) ?? [];
+        const categoryId = categoryIds[0];
+        const categorySlug = categoryId ? categoryById.get(categoryId) : undefined;
+        const demo = demoProducts.find((item) => item.id === product.slug);
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description ?? "",
+          price: Number(product.promo_price ?? product.price),
+          priceFrom: product.price_from,
+          category: categorySlug ?? "buques",
+          image: product.images[0] ?? demo?.image ?? demoProducts[0].image,
+          stock: product.stock,
+        };
+      });
+    },
+    staleTime: 30_000,
+  });
+  const products = catalog.data ?? [];
+  const imageFor = useImageUrls(products.map((p) => p.image));
+
   const list = useMemo(() => {
     let l = products;
     if (filter.type === "cat") l = l.filter((p) => p.category === filter.id);
     if (filter.type === "occ") {
       const ids = occasions.find((o) => o.id === filter.id)?.productIds ?? [];
-      l = l.filter((p) => ids.includes(p.id));
+      l = l.filter((p) => ids.includes(p.id) || ids.includes(demoProducts.find((d) => d.name === p.name)?.id ?? ""));
     }
     if (sort !== "none") l = [...l].sort((a, b) => (sort === "asc" ? a.price - b.price : b.price - a.price));
     return l;
-  }, [filter, sort]);
+  }, [filter, sort, products]);
 
   const occ = filter.type === "occ" ? occasions.find((o) => o.id === filter.id) : null;
   const chip = (active: boolean) =>
@@ -33,7 +80,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
       <div className="text-center">
         <p className="eyebrow">Catálogo</p>
         <h2 className="mt-2 text-4xl md:text-5xl">Nossa vitrine</h2>
-        <p className="mt-3 text-sm text-muted-foreground">Preços ilustrativos para demonstração.</p>
+        <p className="mt-3 text-sm text-muted-foreground">Preços e disponibilidade conforme o cadastro da loja.</p>
       </div>
 
       <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -59,18 +106,22 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
         </p>
       )}
 
-      {list.length === 0 ? (
+      {catalog.isLoading ? (
+        <p className="py-16 text-center text-muted-foreground">Carregando produtos...</p>
+      ) : catalog.isError ? (
+        <p className="py-16 text-center text-muted-foreground">Não foi possível carregar o catálogo agora. Tente novamente em instantes.</p>
+      ) : list.length === 0 ? (
         <p className="py-16 text-center text-muted-foreground">Nenhum produto nesta categoria por enquanto.</p>
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
           {list.map((p) => (
             <article key={p.id} className="group flex flex-col overflow-hidden rounded-2xl border bg-card transition hover:shadow-soft">
               <div className="aspect-square overflow-hidden">
-                <img src={p.image} alt={p.name} loading="lazy" width={816} height={816} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                <img src={imageFor(p.image) ?? demoProducts[0].image} alt={p.name} loading="lazy" width={816} height={816} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
               </div>
               <div className="flex flex-1 flex-col p-3 md:p-5">
                 <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-gold">
-                  {categories.find((c) => c.id === p.category)?.name}
+                  {categories.find((c) => c.id === p.category)?.name ?? p.category}
                 </p>
                 <h3 className="mt-1 text-lg leading-tight md:text-xl">{p.name}</h3>
                 <p className="mt-1 hidden text-sm text-muted-foreground sm:block">{p.description}</p>
@@ -79,13 +130,14 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
                 </p>
                 <div className="mt-auto flex gap-2 pt-4">
                   <button
-                    className="btn btn-primary flex-1 px-3 py-2 text-xs md:text-sm"
+                    disabled={p.stock === 0}
+                    className="btn btn-primary flex-1 px-3 py-2 text-xs md:text-sm disabled:cursor-not-allowed disabled:opacity-50"
                     onClick={() => {
                       add(p);
                       toast.success(`${p.name} adicionado`, { action: { label: "Ver carrinho", onClick: () => setOpen(true) } });
                     }}
                   >
-                    <ShoppingBag className="h-4 w-4" /> <span className="hidden sm:inline">Adicionar ao carrinho</span><span className="sm:hidden">Adicionar</span>
+                    <ShoppingBag className="h-4 w-4" /> <span className="hidden sm:inline">{p.stock === 0 ? "Esgotado" : "Adicionar ao carrinho"}</span><span className="sm:hidden">{p.stock === 0 ? "Esgotado" : "Adicionar"}</span>
                   </button>
                   <button
                     className="btn btn-whatsapp px-3 py-2"
