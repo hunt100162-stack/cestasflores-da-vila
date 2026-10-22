@@ -30,7 +30,6 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
       if (linkResult.error) throw linkResult.error;
 
       const categoryById = new Map(categoryResult.data.map((category) => [category.id, category.slug]));
-      const categoryNameById = new Map(categoryResult.data.map((category) => [category.id, category.name]));
       const linksByProduct = new Map<string, string[]>();
       for (const link of linkResult.data) {
         const current = linksByProduct.get(link.product_id) ?? [];
