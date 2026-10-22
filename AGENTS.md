@@ -9,7 +9,8 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Editable business data (WhatsApp number, address, hours) lives only in src/config/site.ts and catalog data in src/data/catalog.ts — single place for owners to edit.
-- Catalog, stock, lots and orders live in Lovable Cloud tables; orders are created only via the `place_order` SQL function so prices/stock come from the DB, never the browser.
-- Admin access = `user_roles` (admin/staff) checked by `is_staff()` in RLS; the first account ever created becomes admin via the signup trigger.
-- Seeded example images use `demo:<asset-name>` keys that the app resolves to bundled assets.
+- Editable business data (WhatsApp number, address, hours, Instagram) lives in `src/config/site.ts`.
+- Public product records, prices, stock and product/category links come from Supabase; category/occasion presentation assets and example image mappings live in `src/data/catalog.ts`.
+- The current customer purchase flow prepares a WhatsApp message. Do not claim that `place_order` is used by the storefront unless the flow is explicitly integrated and tested.
+- Admin/staff access is based on `user_roles` and `is_staff()` policies in RLS. New signups must never be promoted automatically; provision the store administrator explicitly through a trusted database operator.
+- Example products use `is_example = true` and are hidden from the public catalog until the owner confirms them through the admin editor. Example images use `demo:<asset-name>` keys resolved to bundled assets.
