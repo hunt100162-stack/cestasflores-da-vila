@@ -24,7 +24,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-hero-fade max-md:bg-background/55" />
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 md:pb-0">
         <div className="fade-up max-w-xl">
-          <p className="eyebrow">Floricultura · Buquês & Arranjos</p>
+          <p className="eyebrow">Flores · Cestas · Presentes</p>
           <h1 className="mt-4 text-5xl leading-[1.02] text-sage-deep md:text-7xl">Flores e cestas que transformam momentos em lembranças inesquecíveis.</h1>
           <p className="mt-5 text-lg text-foreground/80">
             Surpreenda quem você ama com flores, cestas e presentes especiais, preparados para tornar cada ocasião única.
@@ -154,7 +154,7 @@ export function About() {
         <p className="eyebrow">Sobre nós</p>
         <h2 className="mt-2 text-4xl leading-tight md:text-5xl">Cada flor tem uma história. A gente ajuda você a contar a sua.</h2>
         <p className="mt-5 text-foreground/80">
-          Na Flora Encanto, acreditamos que flores são uma forma delicada de dizer o que as palavras às vezes não alcançam.
+          Na Cestas Flores da Vila, acreditamos que flores são uma forma delicada de dizer o que as palavras às vezes não alcançam.
           Cada buquê é montado com atenção aos detalhes, pensando em quem vai recebê-lo e no momento que ele vai marcar.
         </p>
         <p className="mt-4 text-foreground/80">
@@ -239,7 +239,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-4">
         <div className="md:col-span-2 [&_span]:text-primary-foreground">
           <Logo />
-          <p className="mt-4 max-w-sm text-sm opacity-80">Buquês e arranjos pensados para transformar momentos em memórias.</p>
+          <p className="mt-4 max-w-sm text-sm opacity-80">Flores, cestas e presentes pensados para transformar momentos em lembranças.</p>
           <div className="mt-5 flex gap-3">
             <button onClick={() => openWhatsapp(SITE.defaultMessage)} className="rounded-full border border-primary-foreground/30 p-2.5 hover:bg-primary-foreground/10" aria-label="WhatsApp"><WhatsIcon className="h-4 w-4" /></button>
             {SITE.instagram && <a href={SITE.instagram} target="_blank" rel="noreferrer" className="rounded-full border border-primary-foreground/30 p-2.5 hover:bg-primary-foreground/10" aria-label="Instagram"><Instagram className="h-4 w-4" /></a>}
