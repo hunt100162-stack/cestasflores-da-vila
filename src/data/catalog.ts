@@ -27,7 +27,7 @@ export const categories: { id: CategoryId; name: string; emoji: string; image: s
 ];
 
 export type Product = {
-  id: string; name: string; description: string; price: number; priceFrom?: boolean | undefined;
+  id: string; slug?: string; name: string; description: string; price: number; priceFrom?: boolean | undefined;
   category: CategoryId; image: string; stock?: number;
 };
 
