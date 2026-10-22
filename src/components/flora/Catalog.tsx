@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ShoppingBag } from "lucide-react";
+import { Search, ShoppingBag, X } from "lucide-react";
 import { categories, occasions, products as demoProducts, type CategoryId, type Product } from "@/data/catalog";
 import { supabase } from "@/integrations/supabase/client";
 import { useImageUrls } from "@/lib/images";
@@ -15,6 +15,8 @@ export type Filter = { type: "all" } | { type: "cat"; id: CategoryId } | { type:
 export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: Filter) => void }) {
   const { add, setOpen } = useCart();
   const [sort, setSort] = useState<"none" | "asc" | "desc">("none");
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<Product | null>(null);
 
   // The storefront reads the same database records managed by the admin panel.
   const catalog = useQuery({
@@ -66,9 +68,11 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
       const ids = occasions.find((o) => o.id === filter.id)?.productIds ?? [];
       l = l.filter((p) => ids.includes(p.id) || ids.includes(demoProducts.find((d) => d.name === p.name)?.id ?? ""));
     }
+    const term = search.trim().toLocaleLowerCase("pt-BR");
+    if (term) l = l.filter((p) => `${p.name} ${p.description}`.toLocaleLowerCase("pt-BR").includes(term));
     if (sort !== "none") l = [...l].sort((a, b) => (sort === "asc" ? a.price - b.price : b.price - a.price));
     return l;
-  }, [filter, sort, products]);
+  }, [filter, sort, products, search]);
 
   const occ = filter.type === "occ" ? occasions.find((o) => o.id === filter.id) : null;
   const chip = (active: boolean) =>
@@ -82,7 +86,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
         <p className="mt-3 text-sm text-muted-foreground">Preços e disponibilidade conforme o cadastro da loja.</p>
       </div>
 
-      <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="mt-8 grid gap-3 md:grid-cols-[minmax(0,1fr)_14rem] md:items-center">\n        <label className="relative block">\n          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />\n          <input className="field pl-9" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar flores, cestas e presentes..." aria-label="Buscar produtos" />\n        </label>\n        <select className="field" value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} aria-label="Ordenar por preço">\n          <option value="none">Ordenar: destaque</option>\n          <option value="asc">Menor preço</option>\n          <option value="desc">Maior preço</option>\n        </select>\n      </div>\n\n      <div className="mt-4 flex gap-2 overflow-x-auto pb-1 md:flex-wrap">
         <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 md:mx-0 md:flex-wrap md:px-0">
           <button className={chip(filter.type === "all")} onClick={() => setFilter({ type: "all" })}>Todos</button>
           {categories.map((c) => (
@@ -91,11 +95,6 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
             </button>
           ))}
         </div>
-        <select className="field md:w-56" value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} aria-label="Ordenar por preço">
-          <option value="none">Ordenar: destaque</option>
-          <option value="asc">Menor preço</option>
-          <option value="desc">Maior preço</option>
-        </select>
       </div>
 
       {occ && (
@@ -122,7 +121,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
                 <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-gold">
                   {categories.find((c) => c.id === p.category)?.name ?? p.category}
                 </p>
-                <h3 className="mt-1 text-lg leading-tight md:text-xl">{p.name}</h3>
+                <h3 className="mt-1 text-lg leading-tight md:text-xl">{p.name}</h3>\n                <button className="mt-2 self-start text-sm font-semibold text-primary underline-offset-4 hover:underline" onClick={() => setSelected(p)}>Ver detalhes</button>
                 <p className="mt-1 hidden text-sm text-muted-foreground sm:block">{p.description}</p>
                 <p className="mt-2 font-semibold text-sage-deep">
                   {p.priceFrom && <span className="text-xs font-normal">A partir de </span>}{brl(p.price)}
