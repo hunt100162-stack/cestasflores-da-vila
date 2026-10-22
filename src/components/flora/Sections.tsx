@@ -94,14 +94,14 @@ export function Occasions({ onPick }: { onPick: (id: string) => void }) {
 
 export function Features() {
   const items = [
-    { icon: Sparkles, t: "Arranjos especiais", d: "Combinações pensadas para cada ocasião." },
-    { icon: Palette, t: "Personalização", d: "Possibilidade de escolher cores e estilos." },
-    { icon: MessageCircle, t: "Atendimento próximo", d: "Contato fácil e direto pelo WhatsApp." },
-    { icon: LayoutGrid, t: "Praticidade", d: "Catálogo organizado e pedidos simplificados." },
+    { icon: Sparkles, t: "Catálogo visual", d: "Explore flores, cestas e presentes em um só lugar." },
+    { icon: Palette, t: "Busca prática", d: "Encontre opções pelo nome e pela descrição." },
+    { icon: MessageCircle, t: "Detalhes do produto", d: "Consulte descrição, preço e disponibilidade cadastrados." },
+    { icon: LayoutGrid, t: "Pedido simplificado", d: "Monte seu carrinho e prepare a mensagem para a loja." },
   ];
   return (
     <section className="mx-auto max-w-7xl px-5 py-20">
-      <Title eyebrow="Diferenciais" title="Feito com carinho" sub="Exemplos editáveis — ajuste conforme os serviços confirmados pela floricultura." />
+      <Title eyebrow="Diferenciais" title="Encontre o presente certo" sub="Explore o catálogo e confira os detalhes de cada opção." />
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {items.map(({ icon: I, t, d }) => (
           <div key={t} className="rounded-2xl border bg-card p-6 text-center">
@@ -158,9 +158,6 @@ export function About() {
         <p className="mt-4 text-foreground/80">
           Do presente inesperado à celebração mais importante, estamos aqui para ajudar você a escolher as flores certas.
         </p>
-        <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-xs text-secondary-foreground">
-          <Heart className="h-3.5 w-3.5" /> Texto demonstrativo — totalmente editável.
-        </p>
       </div>
     </section>
   );
@@ -198,7 +195,7 @@ export function Contact() {
             <div className="text-center">
               <MapPin className="mx-auto h-10 w-10 text-gold" />
               <p className="mt-3 font-display text-2xl">Mapa ilustrativo</p>
-              <p className="mt-1 px-6 text-sm text-muted-foreground">Espaço reservado para o mapa incorporado com o endereço real.</p>
+              <p className="mt-1 px-6 text-sm text-muted-foreground">O mapa será exibido após a confirmação do endereço da loja.</p>
             </div>
           </div>
           <form
