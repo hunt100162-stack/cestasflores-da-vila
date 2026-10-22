@@ -3,7 +3,7 @@ import { Minus, Plus, Trash2, X } from "lucide-react";
 import { useCart } from "./cart";
 import { brl, buildOrderMessage, cartTotal } from "@/lib/order";
 import { WHATSAPP_NUMBER, openWhatsapp } from "@/config/site";
-import { products } from "@/data/catalog";
+import { useImageUrls } from "@/lib/images";
 import { WhatsIcon } from "./WhatsIcon";
 
 export function CartDrawer() {
@@ -13,6 +13,7 @@ export function CartDrawer() {
   const [notes, setNotes] = useState("");
   if (!open) return null;
   const total = cartTotal(lines);
+  const imageFor = useImageUrls(lines.map((line) => line.image ?? ""));
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Carrinho">
@@ -34,10 +35,9 @@ export function CartDrawer() {
             <>
               <ul className="space-y-4">
                 {lines.map((l) => {
-                  const p = products.find((x) => x.id === l.id);
                   return (
                     <li key={l.id} className="flex gap-3">
-                      {p && <img src={p.image} alt="" className="h-20 w-20 rounded-xl object-cover" loading="lazy" />}
+                      {l.image && <img src={imageFor(l.image) ?? l.image} alt="" className="h-20 w-20 rounded-xl object-cover" loading="lazy" />}
                       <div className="flex-1">
                         <p className="font-medium leading-tight">{l.name}</p>
                         <p className="text-sm text-muted-foreground">{l.priceFrom && "a partir de "}{brl(l.price)}</p>
