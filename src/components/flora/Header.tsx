@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Menu, ShoppingBag, X } from "lucide-react";
+import { Menu, ShoppingBag, User as UserIcon, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useAuth } from "@/hooks/use-auth";
 import { useCart } from "./cart";
 import { SITE, openWhatsapp } from "@/config/site";
 import { WhatsIcon } from "./WhatsIcon";
@@ -24,6 +26,7 @@ export function Logo() {
 
 export function Header() {
   const { count, setOpen } = useCart();
+  const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
 
@@ -60,6 +63,9 @@ export function Header() {
               </span>
             )}
           </button>
+          <Link to={user ? "/conta" : "/auth"} className="rounded-full p-2.5 text-sage-deep hover:bg-muted" aria-label={user ? "Minha conta" : "Entrar"}>
+            <UserIcon className="h-5 w-5" />
+          </Link>
           <button onClick={() => openWhatsapp(SITE.defaultMessage)} className="btn btn-whatsapp hidden md:inline-flex">
             <WhatsIcon className="h-4 w-4" /> Pedir pelo WhatsApp
           </button>

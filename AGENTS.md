@@ -10,3 +10,6 @@
 <!-- LOVABLE:END -->
 
 - Editable business data (WhatsApp number, address, hours) lives only in src/config/site.ts and catalog data in src/data/catalog.ts — single place for owners to edit.
+- Catalog, stock, lots and orders live in Lovable Cloud tables; orders are created only via the `place_order` SQL function so prices/stock come from the DB, never the browser.
+- Admin access = `user_roles` (admin/staff) checked by `is_staff()` in RLS; the first account ever created becomes admin via the signup trigger.
+- Seeded example images use `demo:<asset-name>` keys that the app resolves to bundled assets.
