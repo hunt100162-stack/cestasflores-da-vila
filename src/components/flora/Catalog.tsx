@@ -31,7 +31,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
       if (categoryResult.error) throw categoryResult.error;
       if (linkResult.error) throw linkResult.error;
 
-      const categoryById = new Map(categoryResult.data.map((category) => [category.id, category.slug]));
+      const categoryById = new Map(categoryResult.data.map((category) => [category.id, category.slug] as const));
       const linksByProduct = new Map<string, string[]>();
       for (const link of linkResult.data) {
         const current = linksByProduct.get(link.product_id) ?? [];
@@ -99,14 +99,12 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
       </div>
 
       <div className="mt-4 flex gap-2 overflow-x-auto pb-1 md:flex-wrap">
-        <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 md:mx-0 md:flex-wrap md:px-0">
           <button className={chip(filter.type === "all")} onClick={() => setFilter({ type: "all" })}>Todos</button>
           {categories.map((c) => (
             <button key={c.id} className={`${chip(filter.type === "cat" && filter.id === c.id)} shrink-0`} onClick={() => setFilter({ type: "cat", id: c.id })}>
               {c.emoji} {c.name}
             </button>
           ))}
-        </div>
       </div>
 
       {occ && (
