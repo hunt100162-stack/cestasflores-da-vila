@@ -4,8 +4,8 @@
 export const WHATSAPP_NUMBER = "";
 
 export const SITE = {
-  name: "Flora Encanto",
-  fullName: "Flora Encanto Floricultura",
+  name: "Cestas Flores da Vila",
+  fullName: "Cestas Flores da Vila — Floricultura",
   // Endereço fictício. Defina addressConfirmed = true somente com o endereço real.
   address: "Rua das Camélias, 000 — Bairro Exemplo, Cidade/UF (endereço fictício)",
   addressConfirmed: false,
@@ -17,7 +17,7 @@ export const SITE = {
     { days: "Domingo", time: "Fechado (exemplo)" },
   ],
   defaultMessage:
-    "Olá! Conheci a Flora Encanto pelo site e gostaria de saber mais sobre os buquês e arranjos disponíveis.",
+    "Olá! Conheci a Cestas Flores da Vila pelo site e gostaria de saber mais sobre as flores, cestas e presentes disponíveis.",
 };
 
 export function whatsappLink(message: string): string | null {
