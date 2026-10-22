@@ -180,6 +180,7 @@ function ProductForm({ row, cats, onClose, onSaved }: { row: Row | null; cats: {
     setBusy(false);
     toast.success(row ? "Produto atualizado." : "Produto criado.");
     onSaved(); onClose();
+    return undefined;
   };
 
   return (
