@@ -18,8 +18,8 @@ const links = [
 export function Logo() {
   return (
     <a href="#inicio" className="leading-none">
-      <span className="font-display text-2xl font-semibold text-sage-deep md:text-3xl">Flora Encanto</span>
-      <span className="eyebrow block text-[0.6rem]">Floricultura</span>
+      <span className="font-display text-2xl font-semibold text-sage-deep md:text-3xl">Cestas Flores da Vila</span>
+      <span className="eyebrow block text-[0.6rem]">Flores · Cestas · Presentes</span>
     </a>
   );
 }

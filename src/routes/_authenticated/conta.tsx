@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { brl } from "@/lib/order";
 
 export const Route = createFileRoute("/_authenticated/conta")({
-  head: () => ({ meta: [{ title: "Minha conta — Flora Encanto" }, { name: "description", content: "Seus pedidos na Flora Encanto." }] }),
+  head: () => ({ meta: [{ title: "Minha conta — Cestas Flores da Vila" }, { name: "description", content: "Seus pedidos na Cestas Flores da Vila." }] }),
   component: Conta,
 });
 

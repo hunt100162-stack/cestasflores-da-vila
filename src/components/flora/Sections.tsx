@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Clock, Gift, Heart, Instagram, MapPin, MessageCircle, Palette, Phone, Sparkles, X, LayoutGrid } from "lucide-react";
+import { Clock, Gift, Instagram, MapPin, MessageCircle, Palette, Phone, Sparkles, X, LayoutGrid } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import sobre from "@/assets/sobre.jpg";
 import { categories, gallery, occasions, type CategoryId } from "@/data/catalog";
@@ -24,16 +24,14 @@ export function Hero() {
       <div className="absolute inset-0 bg-hero-fade max-md:bg-background/55" />
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 md:pb-0">
         <div className="fade-up max-w-xl">
-          <p className="eyebrow">Floricultura · Buquês & Arranjos</p>
-          <h1 className="mt-4 text-5xl leading-[1.02] text-sage-deep md:text-7xl">Flores que transformam momentos em memórias.</h1>
+          <p className="eyebrow">Flores · Cestas · Presentes</p>
+          <h1 className="mt-4 text-5xl leading-[1.02] text-sage-deep md:text-7xl">Flores e cestas que transformam momentos em lembranças inesquecíveis.</h1>
           <p className="mt-5 text-lg text-foreground/80">
-            Buquês e arranjos especiais para surpreender, emocionar e tornar cada ocasião inesquecível.
+            Surpreenda quem você ama com flores, cestas e presentes especiais, preparados para tornar cada ocasião única.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#buques" className="btn btn-primary">Explorar flores</a>
-            <button className="btn btn-whatsapp" onClick={() => openWhatsapp("Olá! Gostaria de fazer um pedido na Flora Encanto.")}>
-              <WhatsIcon className="h-4 w-4" /> Fazer um pedido
-            </button>
+            <a href="#buques" className="btn btn-primary">Ver nossas cestas</a>
+            <a href="#flores" className="btn btn-outline">Conhecer produtos</a>
           </div>
           <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-sage-deep">
             {["Buquês para presentear", "Arranjos personalizados", "Flores para ocasiões especiais"].map((t) => (
@@ -96,14 +94,14 @@ export function Occasions({ onPick }: { onPick: (id: string) => void }) {
 
 export function Features() {
   const items = [
-    { icon: Sparkles, t: "Arranjos especiais", d: "Combinações pensadas para cada ocasião." },
-    { icon: Palette, t: "Personalização", d: "Possibilidade de escolher cores e estilos." },
-    { icon: MessageCircle, t: "Atendimento próximo", d: "Contato fácil e direto pelo WhatsApp." },
-    { icon: LayoutGrid, t: "Praticidade", d: "Catálogo organizado e pedidos simplificados." },
+    { icon: Sparkles, t: "Catálogo visual", d: "Explore flores, cestas e presentes em um só lugar." },
+    { icon: Palette, t: "Busca prática", d: "Encontre opções pelo nome e pela descrição." },
+    { icon: MessageCircle, t: "Detalhes do produto", d: "Consulte descrição, preço e disponibilidade cadastrados." },
+    { icon: LayoutGrid, t: "Pedido simplificado", d: "Monte seu carrinho e prepare a mensagem para a loja." },
   ];
   return (
     <section className="mx-auto max-w-7xl px-5 py-20">
-      <Title eyebrow="Diferenciais" title="Feito com carinho" sub="Exemplos editáveis — ajuste conforme os serviços confirmados pela floricultura." />
+      <Title eyebrow="Diferenciais" title="Encontre o presente certo" sub="Explore o catálogo e confira os detalhes de cada opção." />
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {items.map(({ icon: I, t, d }) => (
           <div key={t} className="rounded-2xl border bg-card p-6 text-center">
@@ -154,14 +152,11 @@ export function About() {
         <p className="eyebrow">Sobre nós</p>
         <h2 className="mt-2 text-4xl leading-tight md:text-5xl">Cada flor tem uma história. A gente ajuda você a contar a sua.</h2>
         <p className="mt-5 text-foreground/80">
-          Na Flora Encanto, acreditamos que flores são uma forma delicada de dizer o que as palavras às vezes não alcançam.
+          Na Cestas Flores da Vila, acreditamos que flores são uma forma delicada de dizer o que as palavras às vezes não alcançam.
           Cada buquê é montado com atenção aos detalhes, pensando em quem vai recebê-lo e no momento que ele vai marcar.
         </p>
         <p className="mt-4 text-foreground/80">
           Do presente inesperado à celebração mais importante, estamos aqui para ajudar você a escolher as flores certas.
-        </p>
-        <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-xs text-secondary-foreground">
-          <Heart className="h-3.5 w-3.5" /> Texto demonstrativo — totalmente editável.
         </p>
       </div>
     </section>
@@ -174,7 +169,7 @@ export function Contact() {
   return (
     <section id="contato" className="bg-secondary/50 py-20">
       <div className="mx-auto max-w-7xl px-5">
-        <Title eyebrow="Contato" title="Venha nos visitar" sub="Dados de demonstração — substitua pelas informações reais." />
+        <Title eyebrow="Contato" title={SITE.addressConfirmed ? "Venha nos visitar" : "Fale com a loja"} sub={SITE.addressConfirmed ? "Entre em contato para saber mais sobre nossos produtos." : "Endereço e horário de atendimento serão informados após confirmação da loja."} />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           <div className="space-y-5 rounded-2xl bg-card p-6">
             <Info icon={MapPin} label="Endereço">{SITE.address}</Info>
@@ -200,7 +195,7 @@ export function Contact() {
             <div className="text-center">
               <MapPin className="mx-auto h-10 w-10 text-gold" />
               <p className="mt-3 font-display text-2xl">Mapa ilustrativo</p>
-              <p className="mt-1 px-6 text-sm text-muted-foreground">Espaço reservado para o mapa incorporado com o endereço real.</p>
+              <p className="mt-1 px-6 text-sm text-muted-foreground">O mapa será exibido após a confirmação do endereço da loja.</p>
             </div>
           </div>
           <form
@@ -239,7 +234,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-4">
         <div className="md:col-span-2 [&_span]:text-primary-foreground">
           <Logo />
-          <p className="mt-4 max-w-sm text-sm opacity-80">Buquês e arranjos pensados para transformar momentos em memórias.</p>
+          <p className="mt-4 max-w-sm text-sm opacity-80">Flores, cestas e presentes pensados para transformar momentos em lembranças.</p>
           <div className="mt-5 flex gap-3">
             <button onClick={() => openWhatsapp(SITE.defaultMessage)} className="rounded-full border border-primary-foreground/30 p-2.5 hover:bg-primary-foreground/10" aria-label="WhatsApp"><WhatsIcon className="h-4 w-4" /></button>
             {SITE.instagram && <a href={SITE.instagram} target="_blank" rel="noreferrer" className="rounded-full border border-primary-foreground/30 p-2.5 hover:bg-primary-foreground/10" aria-label="Instagram"><Instagram className="h-4 w-4" /></a>}

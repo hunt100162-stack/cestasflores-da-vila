@@ -6,7 +6,7 @@ import { AdminProducts } from "@/components/admin/AdminProducts";
 import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ meta: [{ title: "Painel — Flora Encanto" }, { name: "description", content: "Painel administrativo da loja." }] }),
+  head: () => ({ meta: [{ title: "Painel — Cestas Flores da Vila" }, { name: "description", content: "Painel administrativo da Cestas Flores da Vila." }] }),
   component: Admin,
 });
 

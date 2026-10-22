@@ -1,4 +1,4 @@
-export type CartLine = { id: string; name: string; price: number; qty: number; priceFrom?: boolean | undefined };
+export type CartLine = { id: string; name: string; price: number; qty: number; priceFrom?: boolean | undefined; image?: string; stock?: number };
 
 export const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -11,7 +11,7 @@ export function buildOrderMessage(
   lines: CartLine[],
   info: { name?: string; date?: string; notes?: string },
 ) {
-  const out = ["Olá, Flora Encanto! Gostaria de fazer um pedido:", ""];
+  const out = ["Olá, Cestas Flores da Vila! Gostaria de fazer um pedido:", ""];
   for (const l of lines) {
     out.push(
       `• ${l.qty}x ${l.name} — ${l.priceFrom ? "a partir de " : ""}${brl(l.price)} cada (${brl(l.price * l.qty)})`,
