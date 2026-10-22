@@ -172,7 +172,7 @@ export function Contact() {
   return (
     <section id="contato" className="bg-secondary/50 py-20">
       <div className="mx-auto max-w-7xl px-5">
-        <Title eyebrow="Contato" title="Venha nos visitar" sub="Dados de demonstração — substitua pelas informações reais." />
+        <Title eyebrow="Contato" title={SITE.addressConfirmed ? "Venha nos visitar" : "Fale com a loja"} sub={SITE.addressConfirmed ? "Entre em contato para saber mais sobre nossos produtos." : "Endereço e horário de atendimento serão informados após confirmação da loja."} />
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           <div className="space-y-5 rounded-2xl bg-card p-6">
             <Info icon={MapPin} label="Endereço">{SITE.address}</Info>
