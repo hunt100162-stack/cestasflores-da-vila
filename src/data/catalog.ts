@@ -13,8 +13,7 @@ import casamento from "@/assets/p-casamento.jpg";
 import decoracao from "@/assets/decoracao.jpg";
 import hero from "@/assets/hero.jpg";
 
-export type CategoryId =
-  | "rosas" | "tulipas" | "girassois" | "orquideas" | "buques" | "plantas" | "cestas" | "eventos";
+export type CategoryId = string;
 
 export const categories: { id: CategoryId; name: string; emoji: string; image: string }[] = [
   { id: "rosas", name: "Rosas", emoji: "🌹", image: rosas },
@@ -29,7 +28,7 @@ export const categories: { id: CategoryId; name: string; emoji: string; image: s
 
 export type Product = {
   id: string; name: string; description: string; price: number; priceFrom?: boolean | undefined;
-  category: CategoryId; image: string;
+  category: CategoryId; image: string; stock?: number;
 };
 
 export const products: Product[] = [
