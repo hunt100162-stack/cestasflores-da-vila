@@ -162,7 +162,7 @@ function ProductForm({ row, cats, onClose, onSaved }: { row: Row | null; cats: {
     if (pr != null && !(pr >= 0 && pr < p)) return toast.error("O preço promocional deve ser menor que o preço normal.");
     if (!(s >= 0)) return toast.error("Estoque inválido.");
     setBusy(true);
-    const values = { name: name.trim(), description: description.trim() || null, price: p, promo_price: pr, stock: s, images, updated_at: new Date().toISOString() };
+    const values = { name: name.trim(), description: description.trim() || null, price: p, promo_price: pr, stock: s, images, is_example: false, updated_at: new Date().toISOString() };
     let id = row?.id;
     if (row) {
       const { error } = await supabase.from("products").update(values).eq("id", row.id);
