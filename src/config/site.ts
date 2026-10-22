@@ -28,7 +28,7 @@ export function openWhatsapp(message: string) {
   const url = whatsappLink(message);
   if (!url) {
     alert(
-      "Demonstração: o número de WhatsApp ainda não foi configurado.\n\nResponsável: defina WHATSAPP_NUMBER em src/config/site.ts.\n\nMensagem que seria enviada:\n\n" +
+      "O WhatsApp da loja ainda não foi configurado.\n\nA mensagem que seria preparada é:\n\n" +
         message,
     );
     return;
