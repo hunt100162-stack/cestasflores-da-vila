@@ -139,7 +139,7 @@ export function Gallery() {
       {idx !== null && (
         <div className="fixed inset-0 z-50 grid place-items-center bg-sage-deep/85 p-4 backdrop-blur" onClick={() => setIdx(null)} role="dialog" aria-modal="true">
           <button className="absolute right-4 top-4 rounded-full bg-background p-2" aria-label="Fechar"><X className="h-5 w-5" /></button>
-          <img src={gallery[idx].src} alt={gallery[idx].alt} className="fade-up max-h-[85vh] max-w-full rounded-2xl shadow-soft" />
+          <img src={gallery[idx]?.src} alt={gallery[idx]?.alt ?? ""} className="fade-up max-h-[85vh] max-w-full rounded-2xl shadow-soft" />
         </div>
       )}
     </section>
