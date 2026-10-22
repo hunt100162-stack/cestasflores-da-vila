@@ -30,11 +30,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const add = (p: Product) =>
     setLines((ls) => {
       const f = ls.find((l) => l.id === p.id);
-      if (f) return ls.map((l) => (l.id === p.id ? { ...l, qty: l.qty + 1 } : l));
-      return [...ls, { id: p.id, name: p.name, price: p.price, qty: 1, priceFrom: p.priceFrom }];
+      if (f) return ls.map((l) => {
+        if (l.id !== p.id) return l;
+        const limit = p.stock ?? l.stock;
+        return { ...l, qty: limit == null ? l.qty + 1 : Math.min(limit, l.qty + 1), stock: limit, image: p.image };
+      });
+      return [...ls, { id: p.id, name: p.name, price: p.price, qty: 1, priceFrom: p.priceFrom, image: p.image, stock: p.stock }];
     });
   const setQty = (id: string, qty: number) =>
-    setLines((ls) => (qty <= 0 ? ls.filter((l) => l.id !== id) : ls.map((l) => (l.id === id ? { ...l, qty } : l))));
+    setLines((ls) => (qty <= 0 ? ls.filter((l) => l.id !== id) : ls.map((l) => {
+      if (l.id !== id) return l;
+      return { ...l, qty: l.stock == null ? qty : Math.min(qty, l.stock) };
+    })));
   const remove = (id: string) => setLines((ls) => ls.filter((l) => l.id !== id));
 
   return (
