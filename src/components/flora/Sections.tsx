@@ -31,9 +31,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#buques" className="btn btn-primary">Ver nossas cestas</a>
-            <button className="btn btn-whatsapp" onClick={() => openWhatsapp("Olá! Gostaria de fazer um pedido na Flora Encanto.")}>
-              <WhatsIcon className="h-4 w-4" /> Fazer um pedido
-            </button>
+            <a href="#flores" className="btn btn-outline">Conhecer produtos</a>
           </div>
           <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-sage-deep">
             {["Buquês para presentear", "Arranjos personalizados", "Flores para ocasiões especiais"].map((t) => (
