@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Clock, Gift, Heart, Instagram, MapPin, MessageCircle, Palette, Phone, Sparkles, X, LayoutGrid } from "lucide-react";
+import { Clock, Gift, Instagram, MapPin, MessageCircle, Palette, Phone, Sparkles, X, LayoutGrid } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import sobre from "@/assets/sobre.jpg";
 import { categories, gallery, occasions, type CategoryId } from "@/data/catalog";
