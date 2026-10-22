@@ -7,14 +7,12 @@ export const SITE = {
   name: "Cestas Flores da Vila",
   fullName: "Cestas Flores da Vila — Floricultura",
   // Endereço fictício. Defina addressConfirmed = true somente com o endereço real.
-  address: "Rua das Camélias, 000 — Bairro Exemplo, Cidade/UF (endereço fictício)",
+  address: "Endereço a confirmar",
   addressConfirmed: false,
-  phone: "(00) 0000-0000 — a definir",
+  phone: "A confirmar",
   instagram: "", // ex: "https://instagram.com/floraencanto"
   hours: [
-    { days: "Segunda a sexta", time: "09h às 18h (exemplo)" },
-    { days: "Sábado", time: "09h às 13h (exemplo)" },
-    { days: "Domingo", time: "Fechado (exemplo)" },
+    { days: "Horário de atendimento", time: "A confirmar" },
   ],
   defaultMessage:
     "Olá! Conheci a Cestas Flores da Vila pelo site e gostaria de saber mais sobre as flores, cestas e presentes disponíveis.",
