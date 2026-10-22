@@ -23,7 +23,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
     queryKey: ["public-catalog"],
     queryFn: async (): Promise<Product[]> => {
       const [productResult, categoryResult, linkResult] = await Promise.all([
-        supabase.from("products").select("id,slug,name,description,price,promo_price,price_from,images,stock,active,sort_order").eq("active", true).order("sort_order").order("created_at"),
+        supabase.from("products").select("id,slug,name,description,price,promo_price,price_from,images,stock,active,sort_order").eq("active", true).eq("is_example", false).order("sort_order").order("created_at"),
         supabase.from("categories").select("id,slug,name,active").eq("active", true).order("sort_order"),
         supabase.from("product_categories").select("product_id,category_id"),
       ]);
@@ -119,7 +119,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
       ) : catalog.isError ? (
         <p className="py-16 text-center text-muted-foreground">Não foi possível carregar o catálogo agora. Tente novamente em instantes.</p>
       ) : list.length === 0 ? (
-        <p className="py-16 text-center text-muted-foreground">Nenhum produto nesta categoria por enquanto.</p>
+        <p className="py-16 text-center text-muted-foreground">Nenhum produto cadastrado para exibição nesta categoria.</p>
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
           {list.map((p) => (
