@@ -46,6 +46,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
         const demo = demoProducts.find((item) => item.id === product.slug);
         return {
           id: product.id,
+          slug: product.slug,
           name: product.name,
           description: product.description ?? "",
           price: Number(product.promo_price ?? product.price),
@@ -66,7 +67,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
     if (filter.type === "cat") l = l.filter((p) => p.category === filter.id);
     if (filter.type === "occ") {
       const ids = occasions.find((o) => o.id === filter.id)?.productIds ?? [];
-      l = l.filter((p) => ids.includes(p.id) || ids.includes(demoProducts.find((d) => d.name === p.name)?.id ?? ""));
+      l = l.filter((p) => ids.includes(p.id) || ids.includes(p.slug ?? ""));
     }
     const term = search.trim().toLocaleLowerCase("pt-BR");
     if (term) l = l.filter((p) => `${p.name} ${p.description}`.toLocaleLowerCase("pt-BR").includes(term));
