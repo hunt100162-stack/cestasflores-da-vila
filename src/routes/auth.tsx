@@ -6,10 +6,10 @@ import { lovable } from "@/integrations/lovable/index";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Entrar — Flora Encanto" },
-      { name: "description", content: "Entre ou crie sua conta na Flora Encanto para acompanhar seus pedidos." },
-      { property: "og:title", content: "Entrar — Flora Encanto" },
-      { property: "og:description", content: "Acesse sua conta Flora Encanto." },
+      { title: "Entrar — Cestas Flores da Vila" },
+      { name: "description", content: "Entre ou crie sua conta na Cestas Flores da Vila para acompanhar seus pedidos." },
+      { property: "og:title", content: "Entrar — Cestas Flores da Vila" },
+      { property: "og:description", content: "Acesse sua conta Cestas Flores da Vila." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -56,7 +56,7 @@ function AuthPage() {
   return (
     <main className="grid min-h-screen place-items-center bg-background px-5 py-12">
       <div className="w-full max-w-sm rounded-2xl border bg-card p-6 shadow-soft">
-        <Link to="/" className="font-display text-2xl font-semibold text-sage-deep">Flora Encanto</Link>
+        <Link to="/" className="font-display text-2xl font-semibold text-sage-deep">Cestas Flores da Vila</Link>
         <h1 className="mt-4 text-3xl">{mode === "in" ? "Entrar" : "Criar conta"}</h1>
         <form onSubmit={submit} className="mt-5 space-y-3">
           {mode === "up" && <input className="field" placeholder="Seu nome" value={name} onChange={(e) => setName(e.target.value)} aria-label="Nome" />}
