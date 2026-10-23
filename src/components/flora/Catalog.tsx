@@ -27,7 +27,7 @@ export function Catalog({ filter, setFilter }: { filter: Filter; setFilter: (f: 
     },
   });
   const img = useImageUrls((db.data ?? []).map((r) => r.images[0] ?? ""));
-  const products: (Product & { soldOut: boolean; oldPrice?: number })[] = useMemo(() => (db.data ?? []).map((r) => ({
+  const products: (Product & { soldOut: boolean; oldPrice?: number | undefined })[] = useMemo(() => (db.data ?? []).map((r) => ({
     id: r.slug, name: r.name, description: r.description ?? "",
     price: Number(r.promo_price ?? r.price), oldPrice: r.promo_price != null ? Number(r.price) : undefined,
     priceFrom: r.price_from, soldOut: r.stock <= 0,
