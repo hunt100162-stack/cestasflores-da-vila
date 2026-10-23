@@ -37,7 +37,7 @@ export function CartDrawer() {
                   const p = products.find((x) => x.id === l.id);
                   return (
                     <li key={l.id} className="flex gap-3">
-                      {p && <img src={p.image} alt="" className="h-20 w-20 rounded-xl object-cover" loading="lazy" />}
+                      {(l.image || p) && <img src={l.image || p!.image} alt="" className="h-20 w-20 rounded-xl object-cover" loading="lazy" />}
                       <div className="flex-1">
                         <p className="font-medium leading-tight">{l.name}</p>
                         <p className="text-sm text-muted-foreground">{l.priceFrom && "a partir de "}{brl(l.price)}</p>

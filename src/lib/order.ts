@@ -1,4 +1,4 @@
-export type CartLine = { id: string; name: string; price: number; qty: number; priceFrom?: boolean | undefined };
+export type CartLine = { id: string; name: string; price: number; qty: number; priceFrom?: boolean | undefined; image?: string | undefined };
 
 export const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
