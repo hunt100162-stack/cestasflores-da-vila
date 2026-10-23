@@ -31,7 +31,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setLines((ls) => {
       const f = ls.find((l) => l.id === p.id);
       if (f) return ls.map((l) => (l.id === p.id ? { ...l, qty: l.qty + 1 } : l));
-      return [...ls, { id: p.id, name: p.name, price: p.price, qty: 1, priceFrom: p.priceFrom }];
+      return [...ls, { id: p.id, name: p.name, price: p.price, qty: 1, priceFrom: p.priceFrom, image: p.image }];
     });
   const setQty = (id: string, qty: number) =>
     setLines((ls) => (qty <= 0 ? ls.filter((l) => l.id !== id) : ls.map((l) => (l.id === id ? { ...l, qty } : l))));
